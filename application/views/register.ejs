@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall: Register</title>
+</head>
+<body>
+    <h1>Sign Up</h1>
+    <p>It's quick and easy.</p>
+    <form action="/register" method="post">
+        First Name: <input type="first_name" name="first_name"><br>
+        Last Name: <input type="last_name" name="last_name"><br>
+        E-Mail: <input type="email" name="email"><br>
+        Password: <input type="password" name="password"><br>
+        Confirm Password: <input type="password" name="confirm_password"><br>
+        <input type="submit" value="Submit">
+    </form>
+            
+    <% for(var i=0; i<errors.length; i++){ %>
+        <p><%= errors[i] %></p>
+    <% } %>
+            
+</body>
+</html>

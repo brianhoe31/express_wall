@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall: Login</title>
+</head>
+<body>
+    <h1>Enter Login</h1>
+    <form action="/login" method="post">
+        E-Mail: <input type="email" name="email">
+        Password: <input type="password" name="password">
+        <input type="submit" value="submit">
+    </form>
+    
+    <% for(var i=0; i<errors.length; i++){ %>
+        <p><%= errors[i] %></p>
+    <% } %>
+
+    <hr>
+    <a href="/register">Create a new account</a>
+    <a href="/">Home</a>
+</body>
+</html>
