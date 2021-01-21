@@ -4,7 +4,7 @@ var route = require("./application/config/routes");
 var session = require('express-session');
 
 var app = express();
-app.use(express.static(__dirname + "/static"));
+app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('views', __dirname + '/application/views'); 
 app.set('view engine', 'ejs');
@@ -17,7 +17,7 @@ app.use(session({
 
 app.use('/', route);
 
-app.listen(8888, function() {
-    console.log("listening on port 8888");
+app.listen(7777, function() {
+    console.log("listening on port 7777");
   })
   

@@ -17,7 +17,7 @@ class Message {
                 return data;
             })
             .catch(error => console.log(error));
-            return result;
+        return result;
     }
 
     createComment(req, res) {
@@ -29,9 +29,14 @@ class Message {
         db.none(query, [comment, message_id, user_id]);
     }
 
-    getAllComments(req, res){
-        let query = "SELECT "
-        //comment, date, 
+    getAllComments(req, res) {
+        let query = "SELECT * FROM comments LEFT JOIN users ON comments.user_id = users.id";
+        let result = db.result(query, null, r => r.rows)
+            .then(data => {
+                return data;
+            })
+            .catch(error => console.log(error));
+        return result;
     }
 }
 

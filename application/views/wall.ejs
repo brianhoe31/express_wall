@@ -4,35 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Wall</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        div.messages{
+            border: 1px solid black;
+            margin: 10px;
+            padding: 40px;
+        }
+
+        div.comments{
+            margin: 10px;
+            border: 1px solid black;
+            padding: 5px;
+            box-shadow: -1em 0 1em grey;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>The Wall</h1>
-    <a href="/logout">Logout</a>
-    <h2>Wall comments go here:</h2>
+    <div class="container">
+        <h1>The Wall</h1>
+        <h4>Add Comment:</h4>
+    
+        <form action="/message/new" method='post'>
+            <div class="form-group">
+                <input type="text" name="message" placeholder="Enter Message">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        <a href="/logout">Logout</a>
+    </div>
 
-    <form action="/message/new" method='post'>
-        <input type="text" name="message" placeholder="Enter Message">
-        <input type="submit" value="Submit">
-    </form>
 
     <hr>
 
-    <div class="message">
-        <!-- message goes here -->
-        <% if(messages.length>0){ %>
-            <% for(var i=0; i<messages.length; i++){ %>
-                <h4><%= messages[i].message %></h4>
-                <p><%= messages[i].first_name + " " + messages[i].last_name %></p>
-                <p><%= messages[i].created_at %></p>
-                <!-- for(var j=0; j<comments.length; j++){
-                    comments[j].comment
-                } -->
-                <form action="/message/<%= messages[i].id %>/comment/new" method="post">
-                    <input type="text" name="comment" placeholder="Reply Comment">
-                    <input type="submit" value="Submit" >
-                </form>
+    <div class="container">
+            <!-- message goes here -->
+            <% if(data[0].messages.length>0){ %>
+                <% for(var i=0; i<data[0].messages.length; i++){ %>
+                    <div class="messages">
+                        <h4><%= data[0].messages[i].message %></h4>
+                        <p>By: <%= data[0].messages[i].first_name %></p>
+                        <p><%= data[0].messages[i].created_at %></p>
+                        <% for(var j=0; j<data[1].comments.length; j++){ %>
+                            <% if(data[0].messages[i].id == data[1].comments[j].message_id){ %>
+                                <div class="comments">
+                                    <h5><%= data[1].comments[j].comment %></h5>
+                                    <p>By: <%= data[1].comments[j].first_name %> <%= data[1].comments[j].last_name %></p>
+                                </div>
+                            <% } %>
+                        <% } %>
+                        <form action="/message/<%= data[0].messages[i].id %>/comment/new" method="post">
+                            <input type="text" name="comment" placeholder="Reply Comment">
+                            <input type="submit" value="Submit" >
+                        </form>
+                    </div>
+                <% } %>
             <% } %>
-        <% } %>
     </div>
+
 </body>
 </html>

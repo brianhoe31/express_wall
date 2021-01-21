@@ -23,7 +23,6 @@ class Users {
             
             userModel.findUser(req, res).then(data =>{
                 req.session.userId = data[0].id;
-                console.log(req.session);
                 res.redirect('/wall');
             })
         }
@@ -42,7 +41,6 @@ class Users {
                     res.render("login", {errors:errors})
                 }else{
                     req.session.userId = data[0].id;
-                    console.log('LOGGED IN. SESSION IS : ', req.session);
                     res.redirect("/wall");
                 }
             });
