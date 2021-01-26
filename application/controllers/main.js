@@ -4,23 +4,27 @@ var output = require('../config/output');
 
 class Main {
     loadIndex(req, res) {
-        let profile = output.enable_profiler(req, res);
-        res.render('index', {profile:profile});
+        
+        res.render('index');
     }
 
-    loadWall(req, res) {
-        output.enable_profiler(req, res);
+    async loadWall(req, res) {
         let sqlData = [];
-        messageModel.getAllMessages(req, res)
-            .then(data => {
-                sqlData.push({ messages: data });
-                messageModel.getAllComments(req, res)
-                    .then(data => {
-                        sqlData.push({ comments: data });
-                        res.render('wall', { data: sqlData });
-                    })
-            })
-    }//refactor with async & await 
+        
+        try{
+            let messages = await messageModel.getAllMessages(req, res)
+            sqlData.push({ messages: messages });
+    
+            let comments = await messageModel.getAllComments(req, res)
+            sqlData.push({ comments: comments });
+        }catch (e) {
+            console.log(e);
+        }
+
+        output.enable_profiler(req, res);
+        
+        res.render('wall', { data: sqlData });
+    }
 }
 
 let main = new Main;

@@ -12,6 +12,8 @@ class Message {
 
     getAllMessages(req, res) {
         let query = "SELECT messages.id, messages.message, messages.created_at, users.first_name, users.last_name FROM messages LEFT JOIN users ON messages.user_id = users.id";
+        req.query = query;
+    
         let result = db.result(query, null, r => r.rows)
             .then(data => {
                 return data;

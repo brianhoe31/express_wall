@@ -1,5 +1,6 @@
 var md5 = require('md5');
 var userModel = require('../models/user');
+var output = require('../config/output');
 
 class Users {
     loadLogin(req, res) {

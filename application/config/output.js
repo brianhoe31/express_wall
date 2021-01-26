@@ -22,12 +22,35 @@ class Output {
         }
         
         //POST DATA*
-        if(req.body){
-            console.log('req.body is :', req.body.password);
-        }
+        var post = req.body;
+
         //DATABASE QUERY*
-        return [url, session, headers];
+        var database = {
+            query: req.query
+        }
+
+        let arr_profiler = [url, session, headers, post, database]
+        let profiler = this.display_profiler(arr_profiler);
+        console.log(profiler);
+
+        return arr_profiler;
+
     }
+
+    display_profiler(arr){
+        var output = '';
+        for(var i=0; i<arr.length; i++){
+            //for each object create a row 
+            output += "<div class='profiler>";
+            //input for each object
+                for(const property in arr[i]){
+                    output += `<p>${property}: ${arr[i][property]}`
+                }
+            output += "</div";
+        }
+        return output;
+    }
+
 }
 
 let output = new Output;
